@@ -1,0 +1,40 @@
+{
+  "name": "pixi-layout",
+  "version": "0.0.1",
+  "description": "WIP",
+  "author": "zprodev <zproject.develop@gmail.com> (https://github.com/zprodev)",
+  "license": "MIT",
+  "homepage": "https://github.com/zprodev/pixi-layout#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zprodev/pixi-layout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zprodev/pixi-layout/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run mkdist && npm run psd && npm run cpassets -- -w & npm run cphtml -- -w & webpack-dev-server",
+    "build": "npm run mkdist && npm run psd && npm run cpassets && npm run cphtml && webpack",
+    "mkdist": "rimraf dist/ && mkdirp dist/",
+    "cpassets": "cpx 'assets/**/*' dist/",
+    "cphtml": "cpx src/index.html dist/",
+    "psd": "node PSDConverter.js"
+  },
+  "dependencies": {
+    "pixi-filters": "^2.1.1",
+    "pixi.js": "^4.5.6"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1",
+    "psd2json": "^1.0.4",
+    "psd2sprite": "^0.2.1"
+  }
+}
