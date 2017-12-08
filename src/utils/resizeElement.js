@@ -8,18 +8,33 @@
 export default function(canvas, width, height) {
   const CANVAS_RATIO = width / height;
 
-  let resize = function(){
+  const resize = () => {
+    let w, h;
     if (window.innerWidth / window.innerHeight >= CANVAS_RATIO) {
-      var w = window.innerHeight * CANVAS_RATIO;
-      var h = window.innerHeight;
+      w = window.innerHeight * CANVAS_RATIO;
+      h = window.innerHeight;
     } else {
-      var w = window.innerWidth;
-      var h = window.innerWidth / CANVAS_RATIO;
+      w = window.innerWidth;
+      h = window.innerWidth / CANVAS_RATIO;
     }
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
+    // Fitting when iOS menu bar is displayed.
+    window.scrollTo(0, 0);
   }
 
+  // Initial resize.
   resize();
-  window.onresize = resize;
+
+  // Resize by receiving window event.
+  let resizeTimerId = null;
+  window.onresize = () => {
+    if (resizeTimerId !== null) {
+      clearTimeout(resizeTimerId);
+    }
+    resizeTimerId = setTimeout(() => {
+      resize();
+      resizeTimerId = null;
+    }, 200);
+  };
 }
